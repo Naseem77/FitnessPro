@@ -7,69 +7,23 @@
  */
 
 import React from 'react';
-import { NavigationContainer, StackActions } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './screens/HomeScreen';
-import DetailsScreen from './screens/DetailsScreen';
+import { NavigationContainer} from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Icon from 'react-native-vector-icons/Ionicons';
+import MainTabScreen from './screens/MainTabScreen';
+import SupportScreen from './screens/SupportScreen';
+import SettingsScreen from './screens/SettingsScreen';
+import { DrawerContent} from './screens/DrawerContent';
 
 
-
-const HomeStack = createStackNavigator();
-const DetailsStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-
-const HomeStackScreen = ({navigation}) => (
-  <HomeStack.Navigator screenOptions= {{
-        headerStyle: {
-            backgroundColor: '#e89323'
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: { 
-            fontWeight: 'bold'
-          }
-      }}>
-        <HomeStack.Screen name="Home" component={HomeScreen} options= {{
-          title: 'FitnessPro',
-          headerLeft: () =>(
-            <Icon.Button name="ios-menu" size={25}
-            backgroundColor= '#e89323' onPress= {() => navigation.openDrawer()}
-            ></Icon.Button>
-          )
-        }}/>
-      </HomeStack.Navigator>
-
-);
-
-const DetailsStackScreen = ({navigation}) => (
-  <DetailsStack.Navigator screenOptions= {{
-        headerStyle: {
-            backgroundColor: '#e89323'
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: { 
-            fontWeight: 'bold'
-          }
-      }}>
-        <DetailsStack.Screen name="Home" component={DetailsScreen} options= {{
-          headerLeft: () =>(
-            <Icon.Button name="ios-menu" size={25}
-            backgroundColor= '#e89323' onPress= {() => navigation.openDrawer()}
-            ></Icon.Button>
-          )
-        }}/>
-      </DetailsStack.Navigator>
-
-);
-
 
 const App = () => {
   return(
     <NavigationContainer>
-    <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeStackScreen} />
-        <Drawer.Screen name="Details" component={DetailsStackScreen} />
+    <Drawer.Navigator drawerContent= {props => <DrawerContent { ...props}/>}>
+        <Drawer.Screen name="HomeDrawer" component={MainTabScreen} />
+        <Drawer.Screen name="SupportScreen" component={SupportScreen} />
+        <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
