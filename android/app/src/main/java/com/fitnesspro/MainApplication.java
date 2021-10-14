@@ -10,6 +10,9 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import com.airbnb.android.react.lottie.LottiePackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -26,6 +29,9 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+          packages.add(new LottiePackage());
+          new VectorIconsPackage();
+          new ReactNativeDialogsPackage();
           return packages;
         }
 

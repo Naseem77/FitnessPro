@@ -1,5 +1,6 @@
-import React from 'react';
+import React , { useContext, useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { AuthContext } from '../navigation/AuthProvider';
 import {
     useTheme,
     Avatar,
@@ -17,14 +18,30 @@ import {
 } from '@react-navigation/drawer';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon2 from 'react-native-vector-icons/AntDesign';
+import firestore from '@react-native-firebase/firestore';
 
-import{ AuthContext } from '../components/context';
 
-export function DrawerContent(props) {
+export function DrawerContent(props,{navigation}) {
 
-    const paperTheme = useTheme();
+    const {user, logout} = useContext(AuthContext);
+    const [userData, setUserData] = useState([]);
 
-    const { signOut, toggleTheme } = React.useContext(AuthContext);
+  const getUser = async() => {
+    await firestore()
+    .collection('users')
+    .doc(user.uid)
+    .get()
+    .then((documentSnapshot) => {
+      if( documentSnapshot.exists ) {
+        console.log('User Data', documentSnapshot.data());
+        setUserData(documentSnapshot.data());
+      }
+    })
+  }
+  useEffect(() => {
+    getUser();
+  }, []);
 
     return(
         <View style={{flex:1}}>
@@ -33,13 +50,11 @@ export function DrawerContent(props) {
                     <View style={styles.userInfoSection}>
                         <View style={{flexDirection:'row',marginTop: 15}}>
                             <Avatar.Image 
-                                source={{
-                                    uri: 'https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png'
-                                }}
+                                source={{uri: userData ? userData.userImg || 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png' : 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png'}}
                                 size={50}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>User</Title>
+                                <Title style={styles.title}>{userData ? userData.fname || 'Unknown' : 'Unknown'} {userData ? userData.lname || 'User' : 'User'}</Title>
                             </View>
                         </View>
 
@@ -66,30 +81,41 @@ export function DrawerContent(props) {
                                 size={size}
                                 />
                             )}
-                            label="Profile"
-                            onPress={() => {props.navigation.navigate('Profile')}}
+                            label="Edit Your Profile"
+                            onPress={() => {props.navigation.navigate('EditProfileScreen')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="bookmark-outline" 
+                                name="barcode" 
                                 color={color}
                                 size={size}
                                 />
                             )}
-                            label="Bookmarks"
-                            onPress={() => {props.navigation.navigate('BookmarkScreen')}}
+                            label="Change Password"
+                            onPress={() => {props.navigation.navigate('ChangePasswordScreen')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon 
-                                name="account-settings-outline" 
+                                name="weight-kilogram" 
                                 color={color}
                                 size={size}
                                 />
                             )}
-                            label="Settings"
-                            onPress={() => {props.navigation.navigate('SettingsScreen')}}
+                            label="Change Weight"
+                            onPress={() => {props.navigation.navigate('ChangeWeight')}}
+                        />
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="weight-lifter" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="Change Program"
+                            onPress={() => {props.navigation.navigate('ChangeProgram')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (
@@ -103,16 +129,6 @@ export function DrawerContent(props) {
                             onPress={() => {props.navigation.navigate('SupportScreen')}}
                         />
                     </Drawer.Section>
-                    <Drawer.Section title="Preferences">
-                        <TouchableRipple onPress={() => {toggleTheme()}}>
-                            <View style={styles.preference}>
-                                <Text>Dark Theme</Text>
-                                <View pointerEvents="none">
-                                    <Switch value={paperTheme.dark}/>
-                                </View>
-                            </View>
-                        </TouchableRipple>
-                    </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>
@@ -125,12 +141,14 @@ export function DrawerContent(props) {
                         />
                     )}
                     label="Sign Out"
-                    onPress={() => {signOut()}}
+                    onPress={() => logout()}
                 />
             </Drawer.Section>
         </View>
     );
 }
+
+export default DrawerContent;
 
 const styles = StyleSheet.create({
     drawerContent: {
