@@ -39,7 +39,7 @@ Styled-components
 Login:
   - Enter your password and email
 Register:
-  - Enter your detials (First/Last name)
+  - Enter your details (First/Last name)
   - pick a weight/Hight/gender/year or birth
   - Pick a program
   - Enter your password and email
