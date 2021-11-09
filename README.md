@@ -5,6 +5,7 @@ Fitness pro application has been created with react-native for IOS and Android p
 You can check what fetures the applcation provaides here: https://youtu.be/MKhXwp7SDUw
 
 # Dependencies:
+```javascript
 React-navigation stack
 React-navigation native
 React-navigation paper
@@ -31,5 +32,10 @@ React-navigation safe-area-context
 React-navigation vector-iscons
 Reanimated-bottom-sheet
 Styled-components
+```
 
-# Quick view:
+## Quick view:
+# Welcome Page:
+<img width="309" alt="Screen Shot 2021-07-10 at 18 40 47" src="https://user-images.githubusercontent.com/34807727/141013179-08ba0dd9-39e9-46f5-8c27-b2956c73bacf.png">
+
+
