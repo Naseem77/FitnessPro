@@ -36,7 +36,31 @@ Styled-components
 
 ## App Functions:
 ```javascript
-
+Login:
+  - Enter your password and email
+Register:
+  - Enter your detials (First/Last name)
+  - pick a weight/Hight/gender/year or birth
+  - Pick a program
+  - Enter your password and email
+  
+Add new posts to home screen (pick/take image & text)
+Check other users posts (from home screen)
+Easy acces by drawer navigation
+Add/remove daily food
+Add new food to the food list (missing food types)
+View added food history
+Add recipes to your fav recipes
+Add recipes to your daily food
+Start exercise program (Easy/medium/advanced)
+Edit your profile:
+  - Your profile picture
+  - Profile details (First/Last name, phone, country etc.)
+  - Change your password
+  - Change your program
+  - Change your weight
+  Logout
+  Report a food that has been added by other users due to false info
 ```
 
 ## Quick view:
