@@ -34,7 +34,7 @@ Reanimated-bottom-sheet
 Styled-components
 ```
 
-## App Functions:
+## Features:
 ```javascript
 Login:
   - Enter your password and email
